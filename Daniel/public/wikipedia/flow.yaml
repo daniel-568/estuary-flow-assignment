@@ -1,0 +1,30 @@
+---
+collections:
+  Daniel/public/wikipedia/filtered-recent-changes:
+    schema:
+      properties:
+        timestamp:
+          type: integer
+        title:
+          type: string
+        user:
+          type: string
+        comment:
+          type: string
+        log_type:
+          type: string
+      required:
+        - timestamp
+        - title
+        - user
+        - comment
+        - log_type
+      type: object
+    key:
+      - /timestamp
+    derivation:
+        transform:
+          filtered-recent-changes:
+            source: {name: estuary/public/wikipedia/recentchange}
+            publish: {lambda: typescript}
+        typescript: {module: filter.ts}
